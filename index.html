@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayu Muhamad Arib Irfani — Portofolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --bg-alt: #F4F4F5;
+            /* Abu-abu terang premium (Zinc-100) */
+            --text: #18181B;
+            /* Charcoal gelap (Zinc-900) */
+            --text-muted: #71717A;
+            /* Abu-abu teks (Zinc-500) */
+            --accent: #7C3AED;
+            /* Ungu aksen */
+            --accent-hover: #6D28D9;
+            --accent-light: #F4F4F5;
+            /* Tag abu-abu terang */
+            --border: #E4E4E7;
+            /* Garis batas abu-abu (Zinc-200) */
+            --card: #FFFFFF;
+            /* Kartu putih bersih */
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --display: 'Plus Jakarta Sans', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        html[data-theme="dark"] {
+            --white: #09090B;
+            /* Hitam legam (Zinc-950) */
+            --bg-alt: #18181B;
+            /* Abu-abu gelap (Zinc-900) */
+            --text: #F4F4F5;
+            /* Teks putih abu-abu (Zinc-100) */
+            --text-muted: #A1A1AA;
+            /* Teks redup abu-abu (Zinc-400) */
+            --accent: #A78BFA;
+            /* Ungu terang */
+            --accent-hover: #8B5CF6;
+            --accent-light: #27272A;
+            /* Tag abu-abu gelap */
+            --border: #27272A;
+            /* Garis abu-abu gelap (Zinc-800) */
+            --card: #0F0F11;
+            /* Kartu hitam pekat */
+            --nav-bg: rgba(9, 9, 11, 0.85);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body);
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        @keyframes navDrop {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatAvatar {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes blurIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+                filter: blur(6px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 100;
+            padding: 0 48px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--nav-bg);
+            backdrop-filter: blur(14px);
+            transition: box-shadow 0.3s, background 0.3s, padding 0.3s;
+            animation: navDrop 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        nav.stuck {
+            box-shadow: 0 1px 0 var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-logo em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: border-color 0.2s, background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .burger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .burger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .hero {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 64px 48px 56px;
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .hero-blob {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(ellipse, var(--accent-light) 0%, transparent 68%);
+            opacity: 0.5;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateY(-53%) scale(1.05);
+            }
+        }
+
+        .hero-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: blurIn 0.8s cubic-bezier(.22, .61, .36, 1) 0.1s forwards;
+        }
+
+        .hero-tag::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .hero-name {
+            font-family: var(--display);
+            font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+            font-weight: 800;
+            line-height: 1.04;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin-bottom: 22px;
+        }
+
+        .hero-name .line {
+            display: block;
+            opacity: 0;
+            animation: blurIn 0.9s cubic-bezier(.22, .61, .36, 1) forwards;
+        }
+
+        .hero-name .line:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .hero-name .line:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .purple {
+            color: var(--accent);
+        }
+
+        .hero-tagline {
+            font-size: 1.08rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: blurIn 0.9s cubic-bezier(.22, .61, .36, 1) 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: blurIn 0.9s cubic-bezier(.22, .61, .36, 1) 0.75s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 24px;
+            border-radius: 9px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.15s, background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.12);
+        }
+
+        .btn-filled {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-filled:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+            margin-top: 48px;
+            position: relative;
+            opacity: 0;
+            animation: blurIn 0.9s cubic-bezier(.22, .61, .36, 1) 0.9s forwards;
+        }
+
+        .stat-card {
+            background: var(--bg-alt);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 16px;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .stat-num {
+            font-family: var(--display);
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        section {
+            padding: 96px 48px;
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .sec-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .sec-title {
+            font-family: var(--display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .sec-bar {
+            width: 36px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 52px;
+        }
+
+        #tentang {
+            background: var(--bg-alt);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 188px 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .about-avatar {
+            width: 188px;
+            height: 188px;
+            border-radius: 18px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            animation: floatAvatar 6s ease-in-out infinite;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .about-body p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.85;
+            margin-bottom: 18px;
+        }
+
+        .about-body p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .about-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 100px;
+            background: var(--white);
+            color: var(--text);
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        #layanan {
+            background: var(--white);
+        }
+
+        .layanan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .layanan-card {
+            padding: 28px 26px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+        }
+
+        .layanan-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .layanan-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .layanan-name {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .layanan-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .layanan-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+
+        .layanan-cta:hover {
+            gap: 9px;
+        }
+
+        #keahlian {
+            background: var(--bg-alt);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            padding: 28px 26px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            cursor: default;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .skill-name {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .skill-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .skill-pills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--bg-alt);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        #youtube {
+            background: var(--white);
+        }
+
+        .yt-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 22px 26px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            margin-bottom: 28px;
+        }
+
+        .yt-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4e4e, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .yt-ch-name {
+            font-family: var(--display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .yt-ch-sub {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .yt-sub-btn {
+            margin-left: auto;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FF0000;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .yt-sub-btn:hover {
+            background: #CC0000;
+            transform: translateY(-1px);
+        }
+
+        .yt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .yt-card {
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--card);
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, transform 0.25s, box-shadow 0.2s;
+            display: block;
+        }
+
+        .yt-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .yt-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .yt-play {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .yt-body {
+            padding: 14px 16px;
+        }
+
+        .yt-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.45;
+            margin-bottom: 5px;
+        }
+
+        .yt-meta {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+        }
+
+        .yt-footer {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        #kontak {
+            background: var(--bg-alt);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 11px;
+            background: var(--card);
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .contact-ic {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .contact-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .contact-val {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        footer {
+            padding: 28px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+        }
+
+        footer p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+            filter: blur(4px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 80px 24px 40px;
+            }
+
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            section {
+                padding: 64px 24px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .about-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .yt-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .yt-header {
+                flex-wrap: wrap;
+            }
+
+            .yt-sub-btn {
+                margin-left: 0;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 6px;
+                text-align: center;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="nav">
+        <a class="nav-logo" href="#">Bayu<em>.</em></a>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#tentang" onclick="closeMenu()">Tentang</a></li>
+                <li><a href="#layanan" onclick="closeMenu()">Layanan</a></li>
+                <li><a href="#keahlian" onclick="closeMenu()">Keahlian</a></li>
+                <li><a href="#youtube" onclick="closeMenu()">YouTube</a></li>
+                <li><a href="#kontak" onclick="closeMenu()">Kontak</a></li>
+            </ul>
+            <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Ganti tema">🌙</button>
+            <button class="burger" id="burger" aria-label="Menu" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-blob" aria-hidden="true"></div>
+        <div class="hero-main">
+            <div class="hero-content">
+                <p class="hero-tag">Portofolio Saya</p>
+                <h1 class="hero-name">
+                    <span class="line">Bayu Muhamad</span>
+                    <span class="line">Arib <span class="purple">Irfani</span></span>
+                </h1>
+                <p class="hero-tagline">
+                    Kreator konten animasi, pengembang web, dan penggemar otomatisasi — membangun cerita &amp; alat yang
+                    bermakna untuk Indonesia.
+                </p>
+                <div class="hero-cta">
+                    <a class="btn btn-filled" href="#tentang">Kenalan Yuk →</a>
+                    <a class="btn btn-ghost" href="#kontak">Hubungi Saya</a>
+                    <a class="btn btn-ghost"
+                        href="https://drive.google.com/file/d/MASUKKAN_ID_FILE_GOOGLE_DRIVE_DISINI/view?usp=sharing"
+                        target="_blank" rel="noopener">📄 Unduh CV</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-strip">
+            <div class="stat-card">
+                <span class="stat-num">3+</span>
+                <span class="stat-label">Tahun Berkarya</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="ytVideoCount">8</span>
+                <span class="stat-label">Video Diproduksi</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="ytSubCount">18</span>
+                <span class="stat-label">Subscriber</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="ytViewCount">6.9K</span>
+                <span class="stat-label">Total Views</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="ytLikeCount">300+</span>
+                <span class="stat-label">Total Likes</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">10+</span>
+                <span class="stat-label">Proyek Selesai</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">100%</span>
+                <span class="stat-label">Penuh Semangat</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- TENTANG SAYA -->
+    <section id="tentang">
+        <div class="wrap">
+            <p class="sec-label reveal">Tentang Saya</p>
+            <h2 class="sec-title reveal">Kreator yang suka<br>membangun hal nyata.</h2>
+            <div class="sec-bar reveal"></div>
+            <div class="about-grid reveal">
+                <div class="about-avatar" aria-label="Avatar">
+                    <!-- Foto Utama dengan Fallback Emoji -->
+                    <img src="image_16489b.jpg" alt="Foto Bayu Muhamad Arib Irfani"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span style="display: none; font-size: 4rem;">🐱</span>
+                </div>
+                <div class="about-body">
+                    <p>Halo! Saya <strong>Bayu Muhamad Arib Irfani</strong>, seorang kreator konten dan pengembang web
+                        asal <strong>Tasikmalaya, Jawa Barat</strong>. Saya bersemangat dalam membangun cerita visual
+                        dan alat-alat digital yang berguna.</p>
+                    <p>Saya mengelola channel YouTube <strong>Bonbon and Chiko</strong>
+                        (<strong>@bonbonandchiko</strong>) — serial animasi komedi keluarga yang mengikuti petualangan
+                        Ciko si kucing oranye dan Bonbon si kelinci putih di sebuah perumahan suburban.</p>
+                    <p>Di luar dunia konten, saya aktif dalam pengembangan web dan eksplorasi otomatisasi berbasis AI.
+                        Saya juga terlibat di organisasi kepemudaan <strong>Muda/i MDTU Al-Mubarok II</strong>.</p>
+                    <div class="about-tags">
+                        <span class="tag">📍 Tasikmalaya, Jawa Barat</span>
+                        <span class="tag">🎬 Content Creator</span>
+                        <span class="tag">💻 Web Developer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAYANAN -->
+    <section id="layanan">
+        <div class="wrap">
+            <p class="sec-label reveal">Layanan</p>
+            <h2 class="sec-title reveal">Bisa saya bantu dengan ini.</h2>
+            <div class="sec-bar reveal"></div>
+            <div class="layanan-grid">
+                <div class="layanan-card reveal">
+                    <div class="layanan-icon">🎬</div>
+                    <div class="layanan-name">Produksi Konten Animasi</div>
+                    <p class="layanan-desc">Pembuatan skrip, prompt gambar/video, narasi per panel, dan deskripsi
+                        YouTube untuk konten animasi keluarga berbahasa Indonesia — dari nol hingga siap upload.</p>
+                    <a class="layanan-cta" href="#kontak">Hubungi Saya →</a>
+                </div>
+                <div class="layanan-card reveal">
+                    <div class="layanan-icon">💻</div>
+                    <div class="layanan-name">Pengembangan Web</div>
+                    <p class="layanan-desc">Pembuatan landing page, aplikasi web interaktif, tools berbasis browser, dan
+                        undangan digital. Rapi, cepat, responsif di semua perangkat.</p>
+                    <a class="layanan-cta" href="#kontak">Hubungi Saya →</a>
+                </div>
+                <div class="layanan-card reveal">
+                    <div class="layanan-icon">🤖</div>
+                    <div class="layanan-name">Otomatisasi & Chatbot</div>
+                    <p class="layanan-desc">Setup alur otomasi n8n, integrasi AI ke dalam bisnis atau channel, dan
+                        pembuatan chatbot WhatsApp untuk customer service atau promosi.</p>
+                    <a class="layanan-cta" href="#kontak">Hubungi Saya →</a>
+                </div>
+                <div class="layanan-card reveal">
+                    <div class="layanan-icon">✍️</div>
+                    <div class="layanan-name">Konsultasi Konten & Prompt</div>
+                    <p class="layanan-desc">Konsultasi strategi konten YouTube, pelatihan prompt engineering untuk AI
+                        image/video generation, dan setup pipeline produksi konten yang efisien.</p>
+                    <a class="layanan-cta" href="#kontak">Hubungi Saya →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEAHLIAN -->
+    <section id="keahlian">
+        <div class="wrap">
+            <p class="sec-label reveal">Keahlian</p>
+            <h2 class="sec-title reveal">Yang saya kuasai.</h2>
+            <div class="sec-bar reveal"></div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🎨</div>
+                    <div class="skill-name">Kreasi Konten</div>
+                    <p class="skill-desc">Menulis skrip, menyusun storyboard, dan memproduksi konten animasi komedi
+                        untuk keluarga Indonesia dari awal hingga upload.</p>
+                    <div class="skill-pills">
+                        <span class="pill">Scripting</span>
+                        <span class="pill">Storyboard</span>
+                        <span class="pill">YouTube Shorts</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">💻</div>
+                    <div class="skill-name">Pengembangan Web</div>
+                    <p class="skill-desc">Membangun aplikasi dan halaman web interaktif, dari landing page sederhana
+                        hingga alat berbasis browser yang fungsional.</p>
+                    <div class="skill-pills">
+                        <span class="pill">HTML/CSS</span>
+                        <span class="pill">JavaScript</span>
+                        <span class="pill">React</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">Otomatisasi & AI</div>
+                    <p class="skill-desc">Merancang alur otomasi menggunakan n8n, mengintegrasikan API AI, dan membangun
+                        chatbot WhatsApp berbasis AI.</p>
+                    <div class="skill-pills">
+                        <span class="pill">n8n</span>
+                        <span class="pill">Claude API</span>
+                        <span class="pill">WhatsApp Bot</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">✍️</div>
+                    <div class="skill-name">Prompt Engineering</div>
+                    <p class="skill-desc">Merancang prompt teks-ke-gambar dan teks-ke-video yang menghasilkan visual
+                        karakter konsisten untuk serial animasi.</p>
+                    <div class="skill-pills">
+                        <span class="pill">Image Prompts</span>
+                        <span class="pill">Video Prompts</span>
+                        <span class="pill">TTS Narasi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YOUTUBE -->
+    <section id="youtube">
+        <div class="wrap">
+            <p class="sec-label reveal">Channel YouTube</p>
+            <h2 class="sec-title reveal">Tonton karya terbaru.</h2>
+            <div class="sec-bar reveal"></div>
+
+            <div class="yt-header reveal">
+                <div class="yt-avatar">🐱</div>
+                <div>
+                    <div class="yt-ch-name">Bonbon and Chiko</div>
+                    <div class="yt-ch-sub">Petualangan seru Ciko &amp; Bonbon di perumahan 🐱🐰</div>
+                    <div class="yt-ch-meta" id="ytChannelMeta"
+                        style="font-size: 0.76rem; color: var(--text-muted); margin-top: 4px;">18 subscriber • 8 video
+                    </div>
+                </div>
+                <a class="yt-sub-btn" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                    ▶ Kunjungi Channel
+                </a>
+            </div>
+
+            <div class="yt-grid">
+                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                    <div class="yt-thumb" style="background:linear-gradient(135deg,#EDE9FE,#C4B5FD)">
+                        <div class="yt-play">▶</div>
+                    </div>
+                    <div class="yt-body">
+                        <div class="yt-title">Petualangan Ciko &amp; Bonbon — Episode Terbaru</div>
+                        <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
+                    </div>
+                </a>
+                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                    <div class="yt-thumb" style="background:linear-gradient(135deg,#FEF3C7,#FCA5A5)">
+                        <div class="yt-play">▶</div>
+                    </div>
+                    <div class="yt-body">
+                        <div class="yt-title">Misteri Rumah Tua di Ujung Gang</div>
+                        <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
+                    </div>
+                </a>
+                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                    <div class="yt-thumb" style="background:linear-gradient(135deg,#D1FAE5,#6EE7B7)">
+                        <div class="yt-play">▶</div>
+                    </div>
+                    <div class="yt-body">
+                        <div class="yt-title">Shorts: Kehidupan Seru di Perumahan</div>
+                        <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="yt-footer reveal">
+                <a class="btn" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener"
+                    style="background:#FF0000;color:#fff">
+                    ▶ Lihat Semua Video
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="kontak">
+        <div class="wrap">
+            <p class="sec-label reveal">Kontak</p>
+            <h2 class="sec-title reveal">Mari berkolaborasi.</h2>
+            <div class="sec-bar reveal"></div>
+            <div class="contact-grid">
+                <div class="reveal">
+                    <p style="font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:32px">
+                        Punya ide proyek, tawaran kerja sama, atau ingin ngobrol soal konten dan teknologi? Saya selalu
+                        terbuka untuk diskusi. Hubungi melalui salah satu platform di bawah ini.
+                    </p>
+                    <a class="btn btn-filled" href="mailto:muhamadaibayu@gmail.com">Kirim Email →</a>
+                </div>
+                <div class="contact-links reveal">
+                    <a class="contact-item" href="mailto:muhamadaibayu@gmail.com">
+                        <div class="contact-ic">📧</div>
+                        <div>
+                            <span class="contact-lbl">Email</span>
+                            <span class="contact-val">muhamadaibayu@gmail.com</span>
+                        </div>
+                    </a>
+                    <a class="contact-item" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                        <div class="contact-ic">▶️</div>
+                        <div>
+                            <span class="contact-lbl">YouTube</span>
+                            <span class="contact-val">@bonbonandchiko</span>
+                        </div>
+                    </a>
+                    <div class="contact-item" style="cursor:default">
+                        <div class="contact-ic">📍</div>
+                        <div>
+                            <span class="contact-lbl">Lokasi</span>
+                            <span class="contact-val">Tasikmalaya, Jawa Barat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 <a href="#">Bayu Muhamad Arib Irfani</a>. Dibuat dengan ☕ dan semangat.</p>
+        <p>Tasikmalaya, Indonesia</p>
+    </footer>
+
+    <script>
+        // Nav stuck
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 10), { passive: true });
+
+        // Mobile menu
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+        function toggleMenu() {
+            const open = navLinks.classList.toggle('open');
+            burger.classList.toggle('open', open);
+        }
+        function closeMenu() { navLinks.classList.remove('open'); burger.classList.remove('open'); }
+
+        // Dark mode
+        const themeBtn = document.getElementById('themeBtn');
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.textContent = isDark ? '🌙' : '☀️';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+        const saved = localStorage.getItem('theme');
+        if (saved) { document.documentElement.setAttribute('data-theme', saved); themeBtn.textContent = saved === 'dark' ? '☀️' : '🌙'; }
+
+        // Scroll reveal with stagger
+        const seen = new WeakSet();
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !seen.has(entry.target)) {
+                    seen.add(entry.target);
+                    const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')];
+                    const idx = siblings.indexOf(entry.target);
+                    setTimeout(() => entry.target.classList.add('in'), idx * 95);
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // ── YOUTUBE LIVE STATS ──
+        const YT_CHANNEL_ID = 'UCobM6Fs9JLqfSPLS3VIuYZQ';
+        const YT_CHANNEL_HANDLE = '@bonbonandchiko';
+        const YT_API_KEY = 'AIzaSyCtBe2FsD5VTBddlFsBRe6sExWlVs29yJA';
+        const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
+        const CHANNEL_URL = `https://www.youtube.com/${YT_CHANNEL_HANDLE}`;
+        const PROXY = 'https://api.allorigins.win/get?url=';
+        const API_STATS_URL = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`;
+
+        const ytVideoCountEl = document.getElementById('ytVideoCount');
+        const ytSubCountEl = document.getElementById('ytSubCount');
+        const ytViewCountEl = document.getElementById('ytViewCount');
+        const ytLikeCountEl = document.getElementById('ytLikeCount');
+        const ytChannelMetaEl = document.getElementById('ytChannelMeta');
+
+        function formatCompact(num) {
+            const n = parseInt(num, 10);
+            if (isNaN(n)) return '—';
+            if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+            return n.toString();
+        }
+
+        const YT_GRADIENTS = [
+            'linear-gradient(135deg,#EDE9FE,#C4B5FD)',
+            'linear-gradient(135deg,#FEF3C7,#FCA5A5)',
+            'linear-gradient(135deg,#D1FAE5,#6EE7B7)',
+            'linear-gradient(135deg,#DBEAFE,#93C5FD)',
+            'linear-gradient(135deg,#FCE7F3,#F9A8D4)',
+            'linear-gradient(135deg,#FFF7ED,#FED7AA)'
+        ];
+
+        function updateVideoCard(card, video, idx) {
+            if (!card || !video) return;
+            if (video.link) card.href = video.link;
+
+            const thumbEl = card.querySelector('.yt-thumb');
+            if (thumbEl && video.thumbnail) {
+                const img = document.createElement('img');
+                img.src = video.thumbnail;
+                img.alt = video.title || '';
+                img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:0;';
+                img.onerror = function () {
+                    thumbEl.style.background = YT_GRADIENTS[idx % YT_GRADIENTS.length];
+                    img.remove();
+                };
+                thumbEl.style.position = 'relative';
+                thumbEl.style.overflow = 'hidden';
+                thumbEl.insertBefore(img, thumbEl.firstChild);
+            } else if (thumbEl) {
+                thumbEl.style.background = YT_GRADIENTS[idx % YT_GRADIENTS.length];
+            }
+
+            const titleEl = card.querySelector('.yt-title');
+            if (titleEl && video.title) titleEl.textContent = video.title;
+
+            const metaEl = card.querySelector('.yt-meta');
+            if (metaEl) {
+                const parts = [];
+                if (video.views) parts.push(`${formatCompact(video.views)} tayangan`);
+                if (video.likes) parts.push(`👍 ${video.likes}`);
+                metaEl.textContent = parts.length ? parts.join(' · ') : `${YT_CHANNEL_HANDLE} · YouTube`;
+            }
+        }
+
+        async function fetchYTStats() {
+            // ── 1. YouTube Data API v3 ──
+            try {
+                const apiRes = await fetch(API_STATS_URL);
+                if (!apiRes.ok) throw new Error(`API ${apiRes.status}`);
+                const apiData = await apiRes.json();
+                const stats = apiData.items && apiData.items[0] && apiData.items[0].statistics;
+
+                if (stats) {
+                    const subs = parseInt(stats.subscriberCount, 10);
+                    const videos = parseInt(stats.videoCount, 10);
+                    const views = parseInt(stats.viewCount, 10);
+
+                    if (ytSubCountEl) ytSubCountEl.textContent = formatCompact(subs);
+                    if (ytVideoCountEl) ytVideoCountEl.textContent = videos;
+                    if (ytViewCountEl) ytViewCountEl.textContent = formatCompact(views);
+
+                    if (ytChannelMetaEl) {
+                        ytChannelMetaEl.textContent = `${formatCompact(subs)} subscriber · ${videos} video · ${formatCompact(views)} tayangan`;
+                    }
+                    console.log(`[YT API] ✅ Stats Updated`);
+                }
+            } catch (err) {
+                console.warn('[YT API]', err.message);
+            }
+
+            // ── 2. RSS Feed ──
+            try {
+                const rssRes = await fetch(PROXY + encodeURIComponent(RSS_URL));
+                if (!rssRes.ok) throw new Error('RSS not OK');
+                const rssJson = await rssRes.json();
+                const xml = rssJson.contents || '';
+
+                const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
+                let totalLikes = 0;
+                const videos = [];
+                let m;
+
+                while ((m = entryRegex.exec(xml)) !== null) {
+                    const e = m[1];
+                    const titleM = e.match(/<title>([^<]+)<\/title>/);
+                    const linkM = e.match(/<link[^>]+href="([^"]+)"/);
+                    const thumbM = e.match(/<media:thumbnail[^>]+url="([^"]+)"/);
+                    const viewM = e.match(/<media:statistics[^>]+views="([^"]+)"/);
+                    const likeM = e.match(/<media:starRating[^>]+count="([^"]+)"/);
+
+                    const views = viewM ? parseInt(viewM[1], 10) : 0;
+                    const likes = likeM ? parseInt(likeM[1], 10) : 0;
+                    totalLikes += likes;
+
+                    videos.push({
+                        title: titleM ? titleM[1] : '',
+                        link: linkM ? linkM[1] : `https://youtube.com/${YT_CHANNEL_HANDLE}`,
+                        thumbnail: thumbM ? thumbM[1] : '',
+                        views, likes
+                    });
+                }
+
+                if (ytLikeCountEl) ytLikeCountEl.textContent = formatCompact(totalLikes) + '+';
+
+                const cards = document.querySelectorAll('.yt-card');
+                cards.forEach((card, i) => updateVideoCard(card, videos[i], i));
+                console.log(`[YT RSS] ✅ Content Synced`);
+            } catch (err) {
+                console.warn('[YT RSS]', err.message);
+            }
+        }
+
+        window.onload = function () {
+            fetchYTStats();
+        };
+    </script>
+</body>
+
+</html>
