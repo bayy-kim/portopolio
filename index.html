@@ -31,6 +31,8 @@
             --nav-bg: rgba(255, 255, 255, 0.85);
             --display: 'Plus Jakarta Sans', sans-serif;
             --body: 'Inter', sans-serif;
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         html[data-theme="dark"] {
@@ -181,13 +183,19 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s, background 0.2s, transform 0.3s var(--ease-spring);
             flex-shrink: 0;
         }
 
         .theme-btn:hover {
             border-color: var(--accent);
             background: var(--accent-light);
+            transform: scale(1.08);
+        }
+
+        .theme-btn:active {
+            transform: scale(0.88) rotate(-8deg);
+            transition: transform 0.12s var(--ease-smooth);
         }
 
         .burger {
@@ -235,24 +243,27 @@
             position: absolute;
             right: -60px;
             top: 50%;
-            transform: translateY(-50%);
+            --blob-x: 0px;
+            --blob-y: 0px;
+            transform: translateY(-50%) translate(var(--blob-x), var(--blob-y));
             width: 500px;
             height: 500px;
             background: radial-gradient(ellipse, var(--accent-light) 0%, transparent 68%);
             opacity: 0.5;
             pointer-events: none;
             animation: float 8s ease-in-out infinite;
+            will-change: transform;
         }
 
         @keyframes float {
 
             0%,
             100% {
-                transform: translateY(-50%) scale(1);
+                transform: translateY(-50%) translate(var(--blob-x), var(--blob-y)) scale(1);
             }
 
             50% {
-                transform: translateY(-53%) scale(1.05);
+                transform: translateY(-53%) translate(var(--blob-x), var(--blob-y)) scale(1.05);
             }
         }
 
@@ -353,6 +364,12 @@
         .btn:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 20px rgba(124, 58, 237, 0.12);
+            transition: transform 0.35s var(--ease-spring), background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.96);
+            transition: transform 0.12s var(--ease-smooth);
         }
 
         .btn-filled {
@@ -385,18 +402,45 @@
             animation: blurIn 0.9s cubic-bezier(.22, .61, .36, 1) 0.9s forwards;
         }
 
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
         .stat-card {
             background: var(--bg-alt);
             border: 1.5px solid var(--border);
             border-radius: 12px;
             padding: 18px 16px;
             text-align: center;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: border-color 0.2s, transform 0.3s var(--ease-spring);
+            opacity: 0;
+            animation: popIn 0.55s var(--ease-spring) forwards;
         }
+
+        .stat-card:nth-child(1) { animation-delay: 0.95s; }
+        .stat-card:nth-child(2) { animation-delay: 1.03s; }
+        .stat-card:nth-child(3) { animation-delay: 1.11s; }
+        .stat-card:nth-child(4) { animation-delay: 1.19s; }
+        .stat-card:nth-child(5) { animation-delay: 1.27s; }
+        .stat-card:nth-child(6) { animation-delay: 1.35s; }
+        .stat-card:nth-child(7) { animation-delay: 1.43s; }
 
         .stat-card:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .stat-card:active {
+            transform: translateY(-1px) scale(0.97);
+            transition: transform 0.12s var(--ease-smooth);
         }
 
         .stat-num {
@@ -596,7 +640,7 @@
             border: 1.5px solid var(--border);
             border-radius: 14px;
             background: var(--card);
-            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.4s var(--ease-spring);
             cursor: default;
         }
 
@@ -703,6 +747,127 @@
             transform: translateY(-1px);
         }
 
+        .yt-channels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .yt-chan-card {
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.25s, transform 0.35s var(--ease-spring);
+        }
+
+        .yt-chan-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .yt-chan-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .yt-chan-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4e4e, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .yt-chan-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .yt-chan-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .yt-chan-name {
+            font-family: var(--display);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .yt-chan-handle {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .yt-chan-visit {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: border-color 0.2s, color 0.2s, transform 0.3s var(--ease-spring);
+        }
+
+        .yt-chan-visit:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: scale(1.12) rotate(45deg);
+        }
+
+        .yt-chan-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .yt-chan-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 8px 4px;
+            background: var(--bg-alt);
+            border-radius: 8px;
+        }
+
+        .yt-chan-num {
+            font-family: var(--display);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .yt-chan-lbl {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-top: 2px;
+        }
+
         .yt-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -716,8 +881,13 @@
             background: var(--card);
             text-decoration: none;
             color: var(--text);
-            transition: border-color 0.2s, transform 0.25s, box-shadow 0.2s;
+            transition: border-color 0.2s, transform 0.4s var(--ease-spring), box-shadow 0.2s;
             display: block;
+        }
+
+        .yt-card:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: transform 0.12s var(--ease-smooth);
         }
 
         .yt-card:hover {
@@ -795,7 +965,12 @@
             border-radius: 11px;
             background: var(--card);
             text-decoration: none;
-            transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+            transition: border-color 0.2s, transform 0.35s var(--ease-spring), box-shadow 0.2s;
+        }
+
+        .contact-item:active {
+            transform: translateX(2px) scale(0.98);
+            transition: transform 0.12s var(--ease-smooth);
         }
 
         .contact-item:hover {
@@ -865,6 +1040,18 @@
             filter: blur(0);
         }
 
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 0 20px;
@@ -921,6 +1108,10 @@
             }
 
             .yt-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .yt-channels-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1157,22 +1348,103 @@
             <h2 class="sec-title reveal">Tonton karya terbaru.</h2>
             <div class="sec-bar reveal"></div>
 
-            <div class="yt-header reveal">
-                <div class="yt-avatar">🐱</div>
-                <div>
-                    <div class="yt-ch-name">Bonbon and Chiko</div>
-                    <div class="yt-ch-sub">Petualangan seru Ciko &amp; Bonbon di perumahan 🐱🐰</div>
-                    <div class="yt-ch-meta" id="ytChannelMeta"
-                        style="font-size: 0.76rem; color: var(--text-muted); margin-top: 4px;">18 subscriber • 8 video
+            <!-- 3 channel terpisah: subs, views, likes, video produksi masing-masing -->
+            <div class="yt-channels-grid">
+                <div class="yt-chan-card reveal" data-yt-idx="0">
+                    <div class="yt-chan-top">
+                        <div class="yt-chan-avatar" id="yt0Avatar">🐱</div>
+                        <div class="yt-chan-info">
+                            <div class="yt-chan-name" id="yt0Name">Bonbon and Chiko</div>
+                            <div class="yt-chan-handle">@bonbonandchiko</div>
+                        </div>
+                        <a class="yt-chan-visit" href="https://youtube.com/@bonbonandchiko" target="_blank"
+                            rel="noopener" aria-label="Kunjungi channel">↗</a>
+                    </div>
+                    <div class="yt-chan-stats">
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt0Subs">—</span>
+                            <span class="yt-chan-lbl">Subs</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt0Videos">—</span>
+                            <span class="yt-chan-lbl">Video</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt0Views">—</span>
+                            <span class="yt-chan-lbl">Views</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt0Likes">—</span>
+                            <span class="yt-chan-lbl">Likes</span>
+                        </div>
                     </div>
                 </div>
-                <a class="yt-sub-btn" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
-                    ▶ Kunjungi Channel
-                </a>
+
+                <div class="yt-chan-card reveal" data-yt-idx="1">
+                    <div class="yt-chan-top">
+                        <div class="yt-chan-avatar" id="yt1Avatar">📺</div>
+                        <div class="yt-chan-info">
+                            <div class="yt-chan-name" id="yt1Name">MiniaturGiantKing</div>
+                            <div class="yt-chan-handle">@MiniaturGiantKing</div>
+                        </div>
+                        <a class="yt-chan-visit" href="https://youtube.com/@MiniaturGiantKing" target="_blank"
+                            rel="noopener" aria-label="Kunjungi channel">↗</a>
+                    </div>
+                    <div class="yt-chan-stats">
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt1Subs">—</span>
+                            <span class="yt-chan-lbl">Subs</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt1Videos">—</span>
+                            <span class="yt-chan-lbl">Video</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt1Views">—</span>
+                            <span class="yt-chan-lbl">Views</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt1Likes">—</span>
+                            <span class="yt-chan-lbl">Likes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yt-chan-card reveal" data-yt-idx="2">
+                    <div class="yt-chan-top">
+                        <div class="yt-chan-avatar" id="yt2Avatar">📺</div>
+                        <div class="yt-chan-info">
+                            <div class="yt-chan-name" id="yt2Name">TheLastPage24</div>
+                            <div class="yt-chan-handle">@TheLastPage24</div>
+                        </div>
+                        <a class="yt-chan-visit" href="https://youtube.com/@TheLastPage24" target="_blank"
+                            rel="noopener" aria-label="Kunjungi channel">↗</a>
+                    </div>
+                    <div class="yt-chan-stats">
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt2Subs">—</span>
+                            <span class="yt-chan-lbl">Subs</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt2Videos">—</span>
+                            <span class="yt-chan-lbl">Video</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt2Views">—</span>
+                            <span class="yt-chan-lbl">Views</span>
+                        </div>
+                        <div class="yt-chan-stat">
+                            <span class="yt-chan-num" id="yt2Likes">—</span>
+                            <span class="yt-chan-lbl">Likes</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- 1 video terbaru dari masing-masing channel -->
             <div class="yt-grid">
-                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                <a class="yt-card reveal" data-yt-idx="0" href="https://youtube.com/@bonbonandchiko" target="_blank"
+                    rel="noopener">
                     <div class="yt-thumb" style="background:linear-gradient(135deg,#EDE9FE,#C4B5FD)">
                         <div class="yt-play">▶</div>
                     </div>
@@ -1181,22 +1453,24 @@
                         <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
                     </div>
                 </a>
-                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                <a class="yt-card reveal" data-yt-idx="1" href="https://youtube.com/@MiniaturGiantKing"
+                    target="_blank" rel="noopener">
                     <div class="yt-thumb" style="background:linear-gradient(135deg,#FEF3C7,#FCA5A5)">
                         <div class="yt-play">▶</div>
                     </div>
                     <div class="yt-body">
-                        <div class="yt-title">Misteri Rumah Tua di Ujung Gang</div>
-                        <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
+                        <div class="yt-title">Video terbaru dari MiniaturGiantKing</div>
+                        <div class="yt-meta">@MiniaturGiantKing · Tonton di YouTube</div>
                     </div>
                 </a>
-                <a class="yt-card reveal" href="https://youtube.com/@bonbonandchiko" target="_blank" rel="noopener">
+                <a class="yt-card reveal" data-yt-idx="2" href="https://youtube.com/@TheLastPage24" target="_blank"
+                    rel="noopener">
                     <div class="yt-thumb" style="background:linear-gradient(135deg,#D1FAE5,#6EE7B7)">
                         <div class="yt-play">▶</div>
                     </div>
                     <div class="yt-body">
-                        <div class="yt-title">Shorts: Kehidupan Seru di Perumahan</div>
-                        <div class="yt-meta">@bonbonandchiko · Tonton di YouTube</div>
+                        <div class="yt-title">Video terbaru dari TheLastPage24</div>
+                        <div class="yt-meta">@TheLastPage24 · Tonton di YouTube</div>
                     </div>
                 </a>
             </div>
@@ -1298,20 +1572,46 @@
         }, { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-        // ── YOUTUBE LIVE STATS ──
-        const YT_CHANNEL_ID = 'UCobM6Fs9JLqfSPLS3VIuYZQ';
-        const YT_CHANNEL_HANDLE = '@bonbonandchiko';
-        const YT_API_KEY = 'AIzaSyCtBe2FsD5VTBddlFsBRe6sExWlVs29yJA';
-        const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
-        const CHANNEL_URL = `https://www.youtube.com/${YT_CHANNEL_HANDLE}`;
+        // Hero blob mouse parallax (spring-like, disabled on touch & reduced-motion)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const heroBlob = document.querySelector('.hero-blob');
+        if (heroBlob && !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            let targetX = 0, targetY = 0, curX = 0, curY = 0;
+            document.querySelector('.hero')?.addEventListener('mousemove', (e) => {
+                const { innerWidth: w, innerHeight: h } = window;
+                targetX = (e.clientX / w - 0.5) * 30;
+                targetY = (e.clientY / h - 0.5) * 30;
+            });
+            function animateBlob() {
+                curX += (targetX - curX) * 0.06;
+                curY += (targetY - curY) * 0.06;
+                heroBlob.style.setProperty('--blob-x', `${curX}px`);
+                heroBlob.style.setProperty('--blob-y', `${curY}px`);
+                requestAnimationFrame(animateBlob);
+            }
+            animateBlob();
+        }
+
+        // ── YOUTUBE LIVE STATS (multi-channel: dipisah per akun) ──
+        // API key TIDAK disimpan di sini lagi — request statistik lewat proxy
+        // Cloudflare Worker supaya key tetap rahasia di server. Ganti URL di
+        // bawah dengan URL worker kamu setelah di-deploy (lihat panduan terpisah).
+        const YT_PROXY_URL = 'https://yt-stats-proxy-v2.muhamadaibayu.workers.dev';
         const PROXY = 'https://api.allorigins.win/get?url=';
-        const API_STATS_URL = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`;
+
+        const YT_CHANNELS = [
+            { handle: '@bonbonandchiko' },
+            { handle: '@MiniaturGiantKing' },
+            { handle: '@TheLastPage24' }
+        ];
+
+        // Simpan hasil tiap channel agar bisa dijumlah jadi statistik total di hero
+        const ytTotals = YT_CHANNELS.map(() => ({ subs: 0, videos: 0, views: 0, likes: 0 }));
 
         const ytVideoCountEl = document.getElementById('ytVideoCount');
         const ytSubCountEl = document.getElementById('ytSubCount');
         const ytViewCountEl = document.getElementById('ytViewCount');
         const ytLikeCountEl = document.getElementById('ytLikeCount');
-        const ytChannelMetaEl = document.getElementById('ytChannelMeta');
 
         function formatCompact(num) {
             const n = parseInt(num, 10);
@@ -1330,7 +1630,24 @@
             'linear-gradient(135deg,#FFF7ED,#FED7AA)'
         ];
 
-        function updateVideoCard(card, video, idx) {
+        function setChannelStat(idx, key, value) {
+            const el = document.getElementById(`yt${idx}${key}`);
+            if (el) el.textContent = value;
+        }
+
+        function updateChannelAvatar(idx, url) {
+            const avatarEl = document.getElementById(`yt${idx}Avatar`);
+            if (!avatarEl || !url) return;
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = '';
+            img.onerror = () => img.remove();
+            avatarEl.textContent = '';
+            avatarEl.appendChild(img);
+        }
+
+        function updateVideoCard(idx, video) {
+            const card = document.querySelector(`.yt-card[data-yt-idx="${idx}"]`);
             if (!card || !video) return;
             if (video.link) card.href = video.link;
 
@@ -1359,46 +1676,79 @@
                 const parts = [];
                 if (video.views) parts.push(`${formatCompact(video.views)} tayangan`);
                 if (video.likes) parts.push(`👍 ${video.likes}`);
-                metaEl.textContent = parts.length ? parts.join(' · ') : `${YT_CHANNEL_HANDLE} · YouTube`;
+                if (parts.length) metaEl.textContent = parts.join(' · ');
             }
         }
 
-        async function fetchYTStats() {
-            // ── 1. YouTube Data API v3 ──
+        // Total gabungan ke-3 channel, dipakai di angka highlight hero
+        function recomputeHeroTotals() {
+            const sum = ytTotals.reduce((acc, c) => ({
+                subs: acc.subs + c.subs,
+                videos: acc.videos + c.videos,
+                views: acc.views + c.views,
+                likes: acc.likes + c.likes
+            }), { subs: 0, videos: 0, views: 0, likes: 0 });
+
+            if (ytSubCountEl) ytSubCountEl.textContent = formatCompact(sum.subs);
+            if (ytVideoCountEl) ytVideoCountEl.textContent = sum.videos;
+            if (ytViewCountEl) ytViewCountEl.textContent = formatCompact(sum.views);
+            if (ytLikeCountEl) ytLikeCountEl.textContent = formatCompact(sum.likes) + '+';
+        }
+
+        async function fetchChannelStats(channel, idx) {
+            let channelId = null;
+
+            // ── 1. YouTube Data API v3, cari channel dari @handle ──
             try {
-                const apiRes = await fetch(API_STATS_URL);
+                const apiUrl = `${YT_PROXY_URL}?handle=${encodeURIComponent(channel.handle)}`;
+                const apiRes = await fetch(apiUrl);
                 if (!apiRes.ok) throw new Error(`API ${apiRes.status}`);
                 const apiData = await apiRes.json();
-                const stats = apiData.items && apiData.items[0] && apiData.items[0].statistics;
+                const item = apiData.items && apiData.items[0];
+                const stats = item && item.statistics;
+                const snippet = item && item.snippet;
+
+                if (item) channelId = item.id;
+
+                if (snippet) {
+                    const nameEl = document.getElementById(`yt${idx}Name`);
+                    if (nameEl && snippet.title) nameEl.textContent = snippet.title;
+                    const thumb = snippet.thumbnails && (snippet.thumbnails.default || snippet.thumbnails.medium);
+                    if (thumb && thumb.url) updateChannelAvatar(idx, thumb.url);
+                }
 
                 if (stats) {
-                    const subs = parseInt(stats.subscriberCount, 10);
-                    const videos = parseInt(stats.videoCount, 10);
-                    const views = parseInt(stats.viewCount, 10);
+                    const subs = parseInt(stats.subscriberCount, 10) || 0;
+                    const videos = parseInt(stats.videoCount, 10) || 0;
+                    const views = parseInt(stats.viewCount, 10) || 0;
 
-                    if (ytSubCountEl) ytSubCountEl.textContent = formatCompact(subs);
-                    if (ytVideoCountEl) ytVideoCountEl.textContent = videos;
-                    if (ytViewCountEl) ytViewCountEl.textContent = formatCompact(views);
+                    ytTotals[idx].subs = subs;
+                    ytTotals[idx].videos = videos;
+                    ytTotals[idx].views = views;
 
-                    if (ytChannelMetaEl) {
-                        ytChannelMetaEl.textContent = `${formatCompact(subs)} subscriber · ${videos} video · ${formatCompact(views)} tayangan`;
-                    }
-                    console.log(`[YT API] ✅ Stats Updated`);
+                    setChannelStat(idx, 'Subs', formatCompact(subs));
+                    setChannelStat(idx, 'Videos', videos);
+                    setChannelStat(idx, 'Views', formatCompact(views));
+                    recomputeHeroTotals();
                 }
+                console.log(`[YT API] ✅ ${channel.handle} stats updated`);
             } catch (err) {
-                console.warn('[YT API]', err.message);
+                console.warn(`[YT API] ${channel.handle}`, err.message);
             }
 
-            // ── 2. RSS Feed ──
+            if (!channelId) return; // tanpa channel id, RSS (likes & video terbaru) tidak bisa diambil
+
+            // ── 2. RSS Feed, buat total likes & video terbaru channel ini ──
             try {
-                const rssRes = await fetch(PROXY + encodeURIComponent(RSS_URL));
+                const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+                const rssRes = await fetch(PROXY + encodeURIComponent(rssUrl));
                 if (!rssRes.ok) throw new Error('RSS not OK');
                 const rssJson = await rssRes.json();
                 const xml = rssJson.contents || '';
 
                 const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
                 let totalLikes = 0;
-                const videos = [];
+                let latestVideo = null;
                 let m;
 
                 while ((m = entryRegex.exec(xml)) !== null) {
@@ -1413,26 +1763,29 @@
                     const likes = likeM ? parseInt(likeM[1], 10) : 0;
                     totalLikes += likes;
 
-                    videos.push({
-                        title: titleM ? titleM[1] : '',
-                        link: linkM ? linkM[1] : `https://youtube.com/${YT_CHANNEL_HANDLE}`,
-                        thumbnail: thumbM ? thumbM[1] : '',
-                        views, likes
-                    });
+                    if (!latestVideo) {
+                        latestVideo = {
+                            title: titleM ? titleM[1] : '',
+                            link: linkM ? linkM[1] : `https://youtube.com/${channel.handle}`,
+                            thumbnail: thumbM ? thumbM[1] : '',
+                            views, likes
+                        };
+                    }
                 }
 
-                if (ytLikeCountEl) ytLikeCountEl.textContent = formatCompact(totalLikes) + '+';
+                ytTotals[idx].likes = totalLikes;
+                setChannelStat(idx, 'Likes', formatCompact(totalLikes) + '+');
+                recomputeHeroTotals();
 
-                const cards = document.querySelectorAll('.yt-card');
-                cards.forEach((card, i) => updateVideoCard(card, videos[i], i));
-                console.log(`[YT RSS] ✅ Content Synced`);
+                if (latestVideo) updateVideoCard(idx, latestVideo);
+                console.log(`[YT RSS] ✅ ${channel.handle} synced`);
             } catch (err) {
-                console.warn('[YT RSS]', err.message);
+                console.warn(`[YT RSS] ${channel.handle}`, err.message);
             }
         }
 
         window.onload = function () {
-            fetchYTStats();
+            YT_CHANNELS.forEach((channel, idx) => fetchChannelStats(channel, idx));
         };
     </script>
 </body>
